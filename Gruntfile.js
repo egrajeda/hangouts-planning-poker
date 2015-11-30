@@ -3,7 +3,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     cssmin: {
-      target: {
+      dist: {
         files: {
           'dist/<%= pkg.name %>.min.css': ['src/application.css']
         }
@@ -16,6 +16,17 @@ module.exports = function(grunt) {
       dist: {
         files: {
           'dist/<%= pkg.name %>.min.js': ['src/application.js']
+        }
+      }
+    },
+    copy: {
+      dist: {
+        expand: true,
+        cwd: 'src/',
+        src: 'application.xml',
+        dest: 'dist/',
+        rename: function(dest, filename) {
+          return dest + '<%= pkg.name %>.xml';
         }
       }
     },
@@ -35,10 +46,11 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
 
   grunt.registerTask('test', ['jshint']);
 
-  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin']);
+  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin', 'copy']);
 
 };

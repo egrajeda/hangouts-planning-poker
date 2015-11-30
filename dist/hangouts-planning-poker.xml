@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+    <ModulePrefs title="Planning Poker">
+        <Require feature="rpc" />
+        <Require feature="views" />
+        <Require feature="locked-domain" />
+    </ModulePrefs>
+    <Content type="html"><![CDATA[
+<html ng-app="app">
+<head>
+    <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
+</head>
+<body ng-controller="MainCtrl">
+    <header>
+        <i class="logo material-icons">style</i>
+        <h1>Planning Poker</h1>
+    </header>
+
+    <div class="cards">
+        <a ng-repeat="number in [1, 2, 3, 5, 8, 13, 20, 40]" class="card mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="select(number)" ng-class="{ selected: $parent.selection == number }">
+            {{number}}
+        </a>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="actions">
+        <div ng-if="!player">
+            <button class="join mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="join()">
+                <i class="logo material-icons">style</i>
+                Join
+            </button>
+        </div>
+        <div>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="submitted ? clear() : submit()" ng-class="{ selected: submitted }">
+                <i class="material-icons">{{submitted ? 'check_box' : 'check_box_outline_blank'}}</i>
+                I'm ready
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="leave()">
+                <i class="material-icons">power_settings_new</i>
+            </button>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <tbody>
+            <tr ng-repeat="(id, participant) in participants">
+                <td class="mdl-data-table__cell--non-numeric">
+                    <img src="{{participant.image}}" class="avatar" />
+                    {{participant.name}}
+                </td>
+                <td>
+                    <div class="selection">
+                        <i ng-if="!completed" class="selection-submitted material-icons" ng-class="{ submitted: participant.selection }">done</i>
+                        <span ng-if="completed">{{participant.selection}}</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="average mdl-card mdl-shadow--2dp">
+        <div ng-if="completed">
+            <span class="label">Average</span>
+            <span class="value">{{average}}</span>
+        </div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.min.js"></script>
+
+    <link rel="stylesheet" href="//storage.googleapis.com/code.getmdl.io/1.0.4/material.indigo-pink.min.css">
+    <script src="//storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+
+    <script src="//raw.githubusercontent.com/egrajeda/hangouts-planning-poker/master/dist/hangouts-planning-poker.min.js?20151129"></script>
+    <link rel="stylesheet" href="//raw.githubusercontent.com/egrajeda/hangouts-planning-poker/master/dist/hangouts-planning-poker.min.css?20151129">
+</body>
+]]>
+</Content>
+</Module>
+
