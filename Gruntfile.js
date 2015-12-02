@@ -21,13 +21,20 @@ module.exports = function(grunt) {
     },
     copy: {
       dist: {
-        expand: true,
-        cwd: 'src/',
-        src: 'application.xml',
-        dest: 'dist/',
-        rename: function(dest, filename) {
-          return dest + '<%= pkg.name %>.xml';
-        }
+        files: [{
+          expand: true,
+          cwd: 'src/',
+          src: 'application.xml',
+          dest: 'dist/',
+          rename: function(dest, filename) {
+            return dest + '<%= pkg.name %>.xml';
+          }
+        }, {
+          expand: true,
+          cwd: 'images/',
+          src: '*.png',
+          dest: 'dist/'
+        }]
       }
     },
     jshint: {
