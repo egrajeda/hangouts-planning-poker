@@ -75,8 +75,8 @@
     <script src="//storage.googleapis.com/code.getmdl.io/1.0.4/material.min.js"></script>
     <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
 
-    <script src="//cdn.rawgit.com/egrajeda/hangouts-planning-poker/be8a5d22675970e584cac3f8749842984748d73f/dist/hangouts-planning-poker.min.js"></script>
-    <link rel="stylesheet" href="//cdn.rawgit.com/egrajeda/hangouts-planning-poker/be8a5d22675970e584cac3f8749842984748d73f/dist/hangouts-planning-poker.min.css">
+    <script src="//cdn.rawgit.com/egrajeda/hangouts-planning-poker/897dc0f568f7b13c5fd2bef2cc7bf3235584fc4a/dist/hangouts-planning-poker.min.js"></script>
+    <link rel="stylesheet" href="//cdn.rawgit.com/egrajeda/hangouts-planning-poker/897dc0f568f7b13c5fd2bef2cc7bf3235584fc4a/dist/hangouts-planning-poker.min.css">
 </body>
 ]]>
 </Content>
