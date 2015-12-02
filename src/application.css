@@ -98,6 +98,7 @@ header h1 {
 }
 
 table {
+  width: 90%;
   margin: 15px auto;
 }
 
@@ -106,6 +107,10 @@ table.mdl-data-table td:first-of-type,
 table.mdl-data-table td:last-of-type {
   padding: 0 10px;
   vertical-align: middle;
+}
+
+table.mdl-data-table td:last-of-type {
+  width: 1%;
 }
 
 table .selection {

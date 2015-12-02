@@ -36,6 +36,9 @@
                 <i class="material-icons">{{submitted ? 'check_box' : 'check_box_outline_blank'}}</i>
                 I'm ready
             </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="reload()">
+                <i class="material-icons">cached</i>
+            </button>
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="leave()">
                 <i class="material-icons">power_settings_new</i>
             </button>
@@ -44,7 +47,7 @@
 
     <div class="clearfix"></div>
 
-    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" ng-if="!isEmpty(participants)">
         <tbody>
             <tr ng-repeat="(id, participant) in participants">
                 <td class="mdl-data-table__cell--non-numeric">

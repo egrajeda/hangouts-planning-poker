@@ -16,7 +16,18 @@ function getValue(key) {
 }
 
 function clearValue(key) {
+  console.debug("clearValue", key);
   gapi.hangout.data.clearValue(key);
+}
+
+function removeParticipant(participantId) {
+  console.debug("removeParticipant", participantId);
+
+  var participants = getValue('participants') || {};
+  delete participants[participantId];
+  setValue('participants', participants);
+
+  clearValue(participantId + '_selection');
 }
 
 function synchronize($scope) {
@@ -41,6 +52,10 @@ function synchronize($scope) {
     if (id === $scope.user.id && selection) {
       $scope.selection = selection;
       $scope.submitted = true;
+    // Only clear my selection when I have submitted it, if not another user
+    // will clear it after he submits his.
+    } else if (id === $scope.user.id && !selection && $scope.submitted) {
+      $scope.clear();
     }
 
     sum += parseInt(selection);
@@ -99,9 +114,7 @@ app.controller('MainCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
       return;
     }
 
-    var participants = getValue('participants') || {};
-    delete participants[$scope.user.id];
-    setValue('participants', participants);
+    removeParticipant($scope.user.id);
 
     $scope.player = false;
     $scope.clear();
@@ -125,6 +138,26 @@ app.controller('MainCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
     $scope.submitted = false;
     clearValue($scope.user.id + '_selection');
   };
+
+  $scope.reload = function() {
+    var participants = getValue('participants') || {};
+    for (var id in participants) {
+      clearValue(id + '_selection');
+    }
+  };
+
+  $scope.isEmpty = function(obj) {
+    return Object.keys(obj).length === 0;
+  };
+
+  gapi.hangout.onParticipantsDisabled.add(function(eventObj) {
+    $scope.$apply(function() {
+      console.debug("onParticipantsDisabled", eventObj);
+      for (var index in eventObj.disabledParticipants) {
+        removeParticipant(eventObj.disabledParticipants[index].person.id);
+      }
+    });
+  });
 
   gapi.hangout.data.onStateChanged.add(function(eventObj) {
     $scope.$apply(function() {
