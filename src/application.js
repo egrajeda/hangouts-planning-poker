@@ -68,7 +68,7 @@ function synchronize($scope) {
   return true;
 }
 
-app.controller('MainCtrl', function ($scope, $timeout) {
+app.controller('MainCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
   $scope.participants = [];
 
   $timeout(function() {
@@ -131,4 +131,4 @@ app.controller('MainCtrl', function ($scope, $timeout) {
       synchronize($scope);
     });
   });
-});
+}]);
